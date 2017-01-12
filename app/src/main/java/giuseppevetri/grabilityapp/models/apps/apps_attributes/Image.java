@@ -5,28 +5,38 @@ package giuseppevetri.grabilityapp.models.apps.apps_attributes;
  */
 
 public class Image {
-    private String label;
-    private Image_Attributes imageAttribute;
+    private String small_url,medium_url,large_url;
 
-    public Image(String label, Image_Attributes imageAttribute) {
-        this.label = label;
-        this.imageAttribute = imageAttribute;
+    public Image() {
     }
 
-
-    public String getLabel() {
-        return label;
+    public Image(String small_url, String medium_url, String large_url) {
+        this.small_url = small_url;
+        this.medium_url = medium_url;
+        this.large_url = large_url;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public String getSmall_url() {
+        return small_url;
     }
 
-    public Image_Attributes getImageAttribute() {
-        return imageAttribute;
+    public void setSmall_url(String small_url) {
+        this.small_url = small_url;
     }
 
-    public void setImageAttribute(Image_Attributes imageAttribute) {
-        this.imageAttribute = imageAttribute;
+    public String getMedium_url() {
+        return medium_url;
+    }
+
+    public void setMedium_url(String medium_url) {
+        this.medium_url = medium_url;
+    }
+
+    public String getLarge_url() {
+        return large_url;
+    }
+
+    public void setLarge_url(String large_url) {
+        this.large_url = large_url;
     }
 }

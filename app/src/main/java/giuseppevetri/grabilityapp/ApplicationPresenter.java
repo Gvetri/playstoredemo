@@ -2,7 +2,7 @@ package giuseppevetri.grabilityapp;
 
 import java.util.List;
 
-import giuseppevetri.grabilityapp.models.apps.App;
+import giuseppevetri.grabilityapp.models.apps.Entry;
 import giuseppevetri.grabilityapp.models.apps.apps_attributes.Image;
 import giuseppevetri.grabilityapp.models.apps.apps_attributes.Name;
 import giuseppevetri.grabilityapp.models.apps.apps_attributes.Price;
@@ -14,25 +14,25 @@ import giuseppevetri.grabilityapp.models.apps.apps_attributes.Summary;
  */
 
 public class ApplicationPresenter implements ApplicationPresenterInterface {
-    private List<App> appList;
+    private List<Entry> entryList;
 
     public ApplicationPresenter() {
     }
 
     @Override
-    public List<App> getApps() {
+    public List<Entry> getApps() {
         Name name = new Name("App 1");
         Summary summary = new Summary("Super aplicacion que esta en la playstore");
         Price price = getPrice();
 
-        App app = new App(name,summary,price);
-        App app1 = new App(name,summary,price);
-        App app2 = new App(name,summary,price);
-        appList.add(app);
-        appList.add(app1);
-        appList.add(app2);
+        Entry entry = new Entry();
+        Entry entry1 = new Entry();
+        Entry entry2 = new Entry();
+        entryList.add(entry);
+        entryList.add(entry1);
+        entryList.add(entry2);
 
-        return appList;
+        return entryList;
 
     }
 
@@ -48,19 +48,19 @@ public class ApplicationPresenter implements ApplicationPresenterInterface {
         return image;
     }
 
-    public List<App> geta(){
+    public List<Entry> geta(){
         Name name = new Name("App 1");
         Summary summary = new Summary("Super aplicacion que esta en la playstore");
         Price price = getPrice();
 
-        App app = new App(name,summary,price);
-        App app1 = new App(name,summary,price);
-        App app2 = new App(name,summary,price);
-        appList.add(app);
-        appList.add(app1);
-        appList.add(app2);
+        Entry entry = new Entry();
+        Entry entry1 = new Entry();
+        Entry entry2 = new Entry();
+        entryList.add(entry);
+        entryList.add(entry1);
+        entryList.add(entry2);
 
-        return appList;
+        return entryList;
     }
 
 
