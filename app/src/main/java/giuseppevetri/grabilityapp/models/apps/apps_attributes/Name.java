@@ -7,6 +7,11 @@ package giuseppevetri.grabilityapp.models.apps.apps_attributes;
 public class Name {
     private String label;
 
+    public Name(String label) {
+        this.label = label;
+
+    }
+
     public String getLabel() {
         return label;
     }

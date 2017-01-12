@@ -27,6 +27,32 @@ public class App {
     private Category category;
     private ReleaseDate releaseDate;
 
+    public App(Name name, Image image, Summary summary, Price price, Rights rights, Title title, Link link, Artist artist, Category category, ReleaseDate releaseDate) {
+        this.name = name;
+        this.image = image;
+        this.summary = summary;
+        this.price = price;
+        this.rights = rights;
+        this.title = title;
+        this.link = link;
+        this.artist = artist;
+        this.category = category;
+        this.releaseDate = releaseDate;
+    }
+
+    public App(Name name, Image image, Summary summary, Price price) {
+        this.name = name;
+        this.image = image;
+        this.summary = summary;
+        this.price = price;
+    }
+
+    public App(Name name, Summary summary, Price price) {
+        this.name = name;
+        this.summary = summary;
+        this.price = price;
+    }
+
     public Name getName() {
         return name;
     }

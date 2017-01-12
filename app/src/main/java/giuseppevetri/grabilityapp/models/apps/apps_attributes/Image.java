@@ -8,6 +8,12 @@ public class Image {
     private String label;
     private Image_Attributes imageAttribute;
 
+    public Image(String label, Image_Attributes imageAttribute) {
+        this.label = label;
+        this.imageAttribute = imageAttribute;
+    }
+
+
     public String getLabel() {
         return label;
     }

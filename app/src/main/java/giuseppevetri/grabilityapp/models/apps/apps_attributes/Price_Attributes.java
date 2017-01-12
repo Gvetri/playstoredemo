@@ -8,6 +8,11 @@ public class Price_Attributes {
     private float amount;
     private String currency;
 
+    public Price_Attributes(float amount, String currency) {
+        this.amount = amount;
+        this.currency = currency;
+    }
+
     public float getAmount() {
         return amount;
     }

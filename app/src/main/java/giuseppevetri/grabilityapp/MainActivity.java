@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import giuseppevetri.grabilityapp.adapters.ViewPagerAdapter;
+
 public class MainActivity extends AppCompatActivity implements setPager {
 
     private TabLayout tabLayout;

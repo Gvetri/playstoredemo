@@ -8,8 +8,17 @@ public class Price {
     private String label;
     private Price_Attributes price_attributes;
 
+    public Price(String label, Price_Attributes price_attributes) {
+        this.label = label;
+        this.price_attributes = price_attributes;
+    }
+
     public String getLabel() {
         return label;
+    }
+
+    public Price(Price_Attributes price_attributes) {
+        this.price_attributes = price_attributes;
     }
 
     public void setLabel(String label) {
@@ -22,5 +31,11 @@ public class Price {
 
     public void setPrice_attributes(Price_Attributes price_attributes) {
         this.price_attributes = price_attributes;
+    }
+
+    public String getPriceWithCurrency(){
+        String amount = String.valueOf(this.getPrice_attributes().getAmount());
+        String currency = this.getPrice_attributes().getCurrency();
+        return amount+currency;
     }
 }

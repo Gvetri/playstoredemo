@@ -5,13 +5,17 @@ package giuseppevetri.grabilityapp.models.apps.apps_attributes;
  */
 
 public class Summary {
-    private String summary;
+    private String label;
 
-    public String getSummary() {
-        return summary;
+    public Summary(String label) {
+        this.label = label;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }
