@@ -1,16 +1,20 @@
 package giuseppevetri.grabilityapp;
 
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,6 +44,7 @@ import java.util.List;
 
 import giuseppevetri.grabilityapp.adapters.AppAdapter;
 import giuseppevetri.grabilityapp.adapters.StringAdapterG;
+import giuseppevetri.grabilityapp.dialog.AppDialog;
 import giuseppevetri.grabilityapp.models.Feed;
 import giuseppevetri.grabilityapp.models.apps.Entry;
 import giuseppevetri.grabilityapp.models.apps.apps_attributes.Name;
@@ -83,6 +88,29 @@ public class AppFragment extends Fragment {
         loadAppData();
         requestQueue = Volley.newRequestQueue(getContext());
         fetchAppData();
+        setupRecyclerViewListener();
+    }
+
+    private void setupRecyclerViewListener() {
+
+        recyclerView.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = applist.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
+    }
+
+    private void showAppDialog(Entry entry) {
+        FragmentManager fm = getFragmentManager();
+        AppDialog appDialog = AppDialog.newInstance(entry);
+        appDialog.show(fm,"app_dialog");
+
     }
 
     private void fetchAppData() {
@@ -103,28 +131,6 @@ public class AppFragment extends Fragment {
                                     Log.d(TAG, "fetchAppData: entry: "+entry.getName());
                                 }
                             Log.d(TAG, "onResponse: app list"+applist.size());
-//                            entry.setNameFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del entry name "+entry.getName());
-//                            entry.setSummaryFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del summary "+entry.getSummary());
-//                            entry.setTitleFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del title "+entry.getTitle());
-//                            entry.setIdFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del id "+entry.getApp_id());
-//                            entry.setArtistFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del artist "+entry.getArtist());
-//                            entry.setReleaseDateFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del release date "+entry.getReleaseDate());
-//                            entry.setRightsFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del rights "+entry.getRights());
-//                            entry.setLinkFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del link "+entry.getLink());
-//                            entry.setPriceFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor del price "+entry.getPrice());
-//                            entry.setCategoryFromRequest(object,0);
-//                            Log.d(VOLLEY, "valor de la categoria "+entry.getCategory());
-//                            entry.setImagesFromRequest(object,0);
-//                            Log.d(VOLLEY, "Valor final: "+entry.getImage().getSmall_url()+"\n"+entry.getImage().getMedium_url()+"\n"+entry.getImage().getLarge_url());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -135,7 +141,6 @@ public class AppFragment extends Fragment {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "onErrorResponse: "+error.toString());
-                        writefile(error.toString());
                     }
                 });
         AppController.getInstance().addToRequestQueue(req);
@@ -152,72 +157,11 @@ public class AppFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(appAdapter);
-        //loadData();
-    }
-
-    private void loadStringData() {
-        recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerview);
-        list = new ArrayList<>();
-        sAdapter = new StringAdapterG(list);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        recyclerView.setAdapter(sAdapter);
-        list.add("hola1");
-        list.add("hola2");
-        list.add("hola3");
-        Log.d(TAG, "onActivityCreated: list size : "+list.size());
-        sAdapter.notifyDataSetChanged();
     }
 
 
-//    private void loadData() {
-//
-//        Name name = new Name("App 1");
-//        Summary summary = new Summary("Super aplicacion que esta en la playstoreeeeeeeeeeeeeeeeeeeee");
-//        Price price = getPrice();
-//        Entry entry = new Entry(name,summary,price);
-//        Entry entry1 = new Entry(name,summary,price);
-//        Entry entry2 = new Entry(name,summary,price);
-//        applist.add(entry);
-//        applist.add(entry1);
-//        applist.add(entry2);
-//        Log.d("FRAGMENT", "loadData: applist info "+applist.size());
-//       // appAdapter.notifyDataSetChanged();
-//
-//    }
 
-    private Price getPrice() {
-        Price_Attributes priceAttributes = new Price_Attributes(0.00f,"$");
-        Price price = new Price(priceAttributes);
-        return price;
-    }
 
-    public void writefile(String string) {
-        File externalStorageDir = Environment.getExternalStorageDirectory();
-        File myFile = new File(externalStorageDir, "gv_log.txt");
 
-        if (myFile.exists()) {
-            try {
-
-                FileOutputStream fostream = new FileOutputStream(myFile);
-                OutputStreamWriter oswriter = new OutputStreamWriter(fostream);
-                BufferedWriter bwriter = new BufferedWriter(oswriter);
-                bwriter.write(string);
-                bwriter.close();
-                oswriter.close();
-                fostream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } else {
-            try {
-                myFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 }

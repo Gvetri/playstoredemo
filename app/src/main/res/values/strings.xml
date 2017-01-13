@@ -8,4 +8,5 @@
     <string name="titulo_de_la_aplicacion">Titulo de la aplicacion</string>
     <string name="app_image">app image</string>
     <string name="costo_app">Gratis</string>
+    <string name="nombre_artista">Nombre del artista</string>
 </resources>

@@ -1,5 +1,7 @@
 package giuseppevetri.grabilityapp.models.apps;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.google.gson.JsonObject;
@@ -8,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,7 +29,7 @@ import giuseppevetri.grabilityapp.models.apps.apps_attributes.Title;
  * Created by giuseppe on 07/01/17.
  */
 
-public class Entry {
+public class Entry implements Parcelable {
     private String name,summary,price,rights,title,link,artist,category,releaseDate,app_id;
     private Image image;
     final static String TAG = "Entry";
@@ -48,6 +51,31 @@ public class Entry {
     public Entry() {
 
     }
+
+    protected Entry(Parcel in) {
+        name = in.readString();
+        summary = in.readString();
+        price = in.readString();
+        rights = in.readString();
+        title = in.readString();
+        link = in.readString();
+        artist = in.readString();
+        category = in.readString();
+        releaseDate = in.readString();
+        app_id = in.readString();
+    }
+
+    public static final Creator<Entry> CREATOR = new Creator<Entry>() {
+        @Override
+        public Entry createFromParcel(Parcel in) {
+            return new Entry(in);
+        }
+
+        @Override
+        public Entry[] newArray(int size) {
+            return new Entry[size];
+        }
+    };
 
     public String getApp_id() {
         return app_id;
@@ -323,5 +351,24 @@ public class Entry {
         Log.d(TAG, "valor de la categoria "+this.getCategory());
         this.setImagesFromRequest(object,position);
         Log.d(TAG, "Valor final: "+this.getImage().getSmall_url()+"\n"+this.getImage().getMedium_url()+"\n"+this.getImage().getLarge_url());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(summary);
+        dest.writeString(price);
+        dest.writeString(rights);
+        dest.writeString(title);
+        dest.writeString(link);
+        dest.writeString(artist);
+        dest.writeString(category);
+        dest.writeString(releaseDate);
+        dest.writeString(app_id);
     }
 }

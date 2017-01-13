@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
-import giuseppevetri.grabilityapp.AppFragment;
 import giuseppevetri.grabilityapp.R;
 
 
@@ -21,7 +19,7 @@ public class StringAdapterG extends RecyclerView.Adapter<StringAdapterG.MyViewHo
         TextView title,description,price;
         public MyViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.tv_titulo);
+            title = (TextView) itemView.findViewById(R.id.tv_nombre);
             description = (TextView) itemView.findViewById(R.id.tv_descripcion);
             //image = (ImageView) itemView.findViewById(R.id.app_image);
             price = (TextView) itemView.findViewById(R.id.tv_precio);

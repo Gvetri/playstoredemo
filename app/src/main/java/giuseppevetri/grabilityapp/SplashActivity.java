@@ -28,7 +28,7 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d(TAG, "run: Espera tres minutos... ");
                     finish();
                 }
-            }, 5000);
+            }, 1000);
         } else {
             Log.d(TAG, "onCreate: No esperas nada.");
             startActivity(mainIntent);
@@ -52,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
                     Log.d(TAG, "run: Espera tres minutos... ");
                     finish();
                 }
-            }, 5000);
+            }, 1000);
         } else {
             Log.d(TAG, "onCreate: No esperas nada.");
             startActivity(mainIntent);

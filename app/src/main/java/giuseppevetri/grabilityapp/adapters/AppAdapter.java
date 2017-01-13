@@ -2,8 +2,9 @@ package giuseppevetri.grabilityapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -18,9 +19,6 @@ import giuseppevetri.grabilityapp.R;
 import giuseppevetri.grabilityapp.models.apps.Entry;
 import giuseppevetri.grabilityapp.models.apps.apps_attributes.Image;
 
-
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by giuseppe on 08/01/17.
  */
@@ -33,7 +31,7 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.MyViewHolder> {
         public ImageView image;
         public MyViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.tv_titulo);
+            title = (TextView) itemView.findViewById(R.id.tv_nombre);
             description = (TextView) itemView.findViewById(R.id.tv_descripcion);
             image = (ImageView) itemView.findViewById(R.id.app_image);
             price = (TextView) itemView.findViewById(R.id.tv_precio);
@@ -82,6 +80,56 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.MyViewHolder> {
     public int getItemCount() {
         return list.size();
     }
+
+    public interface ClickListener {
+        void onClick(View view, int position);
+
+        void onLongClick(View view, int position);
+    }
+
+    public static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+
+        private GestureDetector gestureDetector;
+        protected ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final AppAdapter.ClickListener clickListener) {
+            this.clickListener = clickListener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
 
 
 }
