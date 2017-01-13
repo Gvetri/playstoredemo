@@ -1,14 +1,178 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="giuseppevetri.grabilityapp.CategoryFragment">
+    tools:context="giuseppevetri.grabilityapp.CategoryFragment"
+    android:orientation="vertical">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:layout_marginTop="200dp" />
 
-</FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:text="Juegos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview" />
+
+            <TextView
+                android:text="Musica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_musica"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_musica"/>
+
+            <TextView
+                android:text="Utilidades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_utilidades"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_utilidades"/>
+
+            <TextView
+                android:text="Social"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_social"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_social"/>
+
+            <TextView
+                android:text="Foto y video"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_foto_y_video"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_foto_y_video"/>
+
+            <TextView
+                android:text="Navegacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_navegacion"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_navegacion"/>
+
+            <TextView
+                android:text="Viaje"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_viaje"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_viaje">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:text="Productividad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_productividad"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_productividad"/>
+
+            <TextView
+                android:text="Shopping"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_shopping"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_shopping">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:text="Entretenimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_titulo_categoria_entretenimiento"
+                android:textAppearance="@android:style/TextAppearance.StatusBar.Title"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="16dp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:id="@+id/recyclerview_entretenimiento"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

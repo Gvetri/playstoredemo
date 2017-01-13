@@ -130,6 +130,19 @@ public class AppAdapter extends RecyclerView.Adapter<AppAdapter.MyViewHolder> {
         }
     }
 
+    public List<Entry> getList() {
+        return list;
+    }
 
+    public void setList(List<Entry> list) {
+        this.list = list;
+    }
 
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 }

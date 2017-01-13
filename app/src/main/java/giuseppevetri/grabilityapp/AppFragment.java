@@ -1,8 +1,6 @@
 package giuseppevetri.grabilityapp;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,47 +9,28 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import giuseppevetri.grabilityapp.adapters.AppAdapter;
 import giuseppevetri.grabilityapp.adapters.StringAdapterG;
 import giuseppevetri.grabilityapp.dialog.AppDialog;
-import giuseppevetri.grabilityapp.models.Feed;
 import giuseppevetri.grabilityapp.models.apps.Entry;
-import giuseppevetri.grabilityapp.models.apps.apps_attributes.Name;
-import giuseppevetri.grabilityapp.models.apps.apps_attributes.Price;
-import giuseppevetri.grabilityapp.models.apps.apps_attributes.Price_Attributes;
-import giuseppevetri.grabilityapp.models.apps.apps_attributes.Summary;
-import giuseppevetri.grabilityapp.AppController;
 
 import static android.content.ContentValues.TAG;
 
@@ -84,7 +63,6 @@ public class AppFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        //loadStringData();
         loadAppData();
         requestQueue = Volley.newRequestQueue(getContext());
         fetchAppData();
@@ -158,9 +136,6 @@ public class AppFragment extends Fragment {
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(appAdapter);
     }
-
-
-
 
 
 
