@@ -1,10 +1,13 @@
 package giuseppevetri.grabilityapp;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.transition.Fade;
+import android.transition.TransitionInflater;
 
 import giuseppevetri.grabilityapp.adapters.ViewPagerAdapter;
 
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements setPager {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setupWindowAnimations();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -30,6 +34,16 @@ public class MainActivity extends AppCompatActivity implements setPager {
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(tabLayout);
+    }
+
+    private void setupWindowAnimations() {
+        Fade fade = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            fade = (Fade) TransitionInflater.from(this).inflateTransition(R.transition.activity_fade);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(fade);
+        }
     }
 
     @Override

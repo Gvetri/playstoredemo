@@ -1,7 +1,11 @@
 package giuseppevetri.grabilityapp;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,6 +32,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import giuseppevetri.grabilityapp.ConnectivityReceiver.ConnectivityReceiverListener;
 import giuseppevetri.grabilityapp.adapters.AppAdapter;
 import giuseppevetri.grabilityapp.adapters.StringAdapterG;
 import giuseppevetri.grabilityapp.dialog.AppDialog;
@@ -35,7 +41,7 @@ import giuseppevetri.grabilityapp.models.apps.Entry;
 import static android.content.ContentValues.TAG;
 
 
-public class AppFragment extends Fragment {
+public class AppFragment extends Fragment implements ConnectivityReceiverListener{
 
     private RecyclerView recyclerView;
     private AppAdapter appAdapter;
@@ -63,6 +69,7 @@ public class AppFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        checkConnection();
         loadAppData();
         requestQueue = Volley.newRequestQueue(getContext());
         fetchAppData();
@@ -112,6 +119,7 @@ public class AppFragment extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        saveInformation();
                         appAdapter.notifyDataSetChanged();
                     }
                 },
@@ -122,6 +130,13 @@ public class AppFragment extends Fragment {
                     }
                 });
         AppController.getInstance().addToRequestQueue(req);
+    }
+
+    private void saveInformation() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("data",true);
+        editor.apply();
     }
 
 
@@ -135,6 +150,39 @@ public class AppFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(appAdapter);
+    }
+
+    private void checkConnection() {
+        boolean isConnected = ConnectivityReceiver.isConnected();
+        showToast(isConnected);
+    }
+
+    private void showToast(boolean isConnected) {
+        if (!isConnected) {
+            String message = "No estas conectado a internet, se mostraran los datos que ya fueron almacenados";
+            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        AppController.getInstance().setConnectivityListener(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppController.getInstance().setConnectivityListener(this);
+    }
+
+    /**
+     * Callback que se activa cuando no hay internet
+     *
+     */
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        showToast(isConnected);
     }
 
 

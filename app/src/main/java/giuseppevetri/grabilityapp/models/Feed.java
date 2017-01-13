@@ -3,11 +3,7 @@ package giuseppevetri.grabilityapp.models;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
-import java.util.ArrayList;
-
-import giuseppevetri.grabilityapp.ApplicationPresenter;
 import giuseppevetri.grabilityapp.models.apps.Entry;
 
 /**

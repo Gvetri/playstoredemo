@@ -1,8 +1,10 @@
 package giuseppevetri.grabilityapp;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -80,8 +82,8 @@ public class CategoryFragment extends Fragment {
         loadAppData();
         requestQueue = Volley.newRequestQueue(getContext());
         fetchAppData();
-        setupRecyclerViewListener();
-        orderByCategory();
+        //setupRecyclerViewListener();
+        //orderByCategory();
     }
 
     private void orderByCategory() {
@@ -151,109 +153,201 @@ public class CategoryFragment extends Fragment {
 
     private void initializeMusicAdapter() {
         recyclerView_music = (RecyclerView) getView().findViewById(R.id.recyclerview_musica);
-        Log.d("FRAGMENT", "loadData: applist info musica"+music_category.size());
         music_adapter = new AppAdapter(music_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_music.setLayoutManager(mLayoutManager);
         recyclerView_music.setItemAnimator(new DefaultItemAnimator());
         recyclerView_music.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_music.setAdapter(music_adapter);
+        recyclerView_music.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_music, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = music_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
 
     }
 
     private void initializeEntertainmentAdapter() {
         recyclerView_Entertainment = (RecyclerView) getView().findViewById(R.id.recyclerview_entretenimiento);
-        Log.d("FRAGMENT", "loadData: applist info "+entertainment_category.size());
         entertainment_adapter = new AppAdapter(entertainment_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_Entertainment.setLayoutManager(mLayoutManager);
         recyclerView_Entertainment.setItemAnimator(new DefaultItemAnimator());
         recyclerView_Entertainment.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_Entertainment.setAdapter(entertainment_adapter);
+        recyclerView_Entertainment.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_Entertainment, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = entertainment_category.get(position);
+                showAppDialog(entry);
+            }
 
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
     }
 
     private void initializeShoppingCategoryadapter() {
         recyclerView_shopping = (RecyclerView) getView().findViewById(R.id.recyclerview_shopping);
-        Log.d("FRAGMENT", "loadData: applist info "+shopping_category.size());
         shopping_adapter = new AppAdapter(shopping_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_shopping.setLayoutManager(mLayoutManager);
         recyclerView_shopping.setItemAnimator(new DefaultItemAnimator());
         recyclerView_shopping.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_shopping.setAdapter(shopping_adapter);
+        recyclerView_shopping.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_shopping, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = shopping_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
     }
 
     private void initializeProductivityAdapter() {
         recyclerView_productivity = (RecyclerView) getView().findViewById(R.id.recyclerview_productividad);
-        Log.d("FRAGMENT", "loadData: applist info "+productivity_category.size());
         productivity_adapter = new AppAdapter(productivity_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_productivity.setLayoutManager(mLayoutManager);
         recyclerView_productivity.setItemAnimator(new DefaultItemAnimator());
         recyclerView_productivity.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_productivity.setAdapter(productivity_adapter);
+        recyclerView_productivity.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_productivity, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = productivity_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
 
     }
 
     private void initializeTravelAdapter() {
         recyclerView_travel = (RecyclerView) getView().findViewById(R.id.recyclerview_viaje);
-        Log.d("FRAGMENT", "loadData: applist info "+travel_category.size());
         travel_adapter = new AppAdapter(travel_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_travel.setLayoutManager(mLayoutManager);
         recyclerView_travel.setItemAnimator(new DefaultItemAnimator());
         recyclerView_travel.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_travel.setAdapter(travel_adapter);
+        recyclerView_travel.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_travel, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = travel_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
+
     }
 
     private void initializeNavigationAdapter() {
         recyclerView_navigation = (RecyclerView) getView().findViewById(R.id.recyclerview_navegacion);
-        Log.d("FRAGMENT", "loadData: applist info "+navigation_category.size());
         navigation_adapter = new AppAdapter(navigation_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_navigation.setLayoutManager(mLayoutManager);
         recyclerView_navigation.setItemAnimator(new DefaultItemAnimator());
         recyclerView_navigation.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_navigation.setAdapter(navigation_adapter);
+        recyclerView_navigation.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_navigation, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = navigation_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
+
     }
 
     private void initializePhotoVideoAdapter() {
         recyclerView_photo = (RecyclerView) getView().findViewById(R.id.recyclerview_foto_y_video);
-        Log.d("FRAGMENT", "loadData: applist info "+photo_video_category.size());
         photo_video_adapter = new AppAdapter(photo_video_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_photo.setLayoutManager(mLayoutManager);
         recyclerView_photo.setItemAnimator(new DefaultItemAnimator());
         recyclerView_photo.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_photo.setAdapter(photo_video_adapter);
+        recyclerView_photo.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_photo, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = photo_video_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
     }
 
     private void initializeSocialAdapter() {
         recyclerView_social = (RecyclerView) getView().findViewById(R.id.recyclerview_social);
-        Log.d("FRAGMENT", "loadData: applist info "+social_networking_category.size());
         social_adapter = new AppAdapter(social_networking_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_social.setLayoutManager(mLayoutManager);
         recyclerView_social.setItemAnimator(new DefaultItemAnimator());
         recyclerView_social.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_social.setAdapter(social_adapter);
+        recyclerView_social.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_social, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = social_networking_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
     }
 
     private void initializeUtilitiesAdapter() {
         recyclerView_Utilities = (RecyclerView) getView().findViewById(R.id.recyclerview_utilidades);
-        Log.d("FRAGMENT", "loadData: applist info "+utilities_category.size());
         utilities_adapter = new AppAdapter(utilities_category, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView_Utilities.setLayoutManager(mLayoutManager);
         recyclerView_Utilities.setItemAnimator(new DefaultItemAnimator());
         recyclerView_Utilities.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView_Utilities.setAdapter(utilities_adapter);
+        recyclerView_Utilities.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView_Utilities, new AppAdapter.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Entry entry = utilities_category.get(position);
+                showAppDialog(entry);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+            }
+        }));
     }
 
     private void initializeGameAdapter() {
         appAdapter.setList(game_category);
         appAdapter.notifyDataSetChanged();
+        setupRecyclerViewListener();
     }
 
     private void setupRecyclerViewListener() {
@@ -261,7 +355,7 @@ public class CategoryFragment extends Fragment {
         recyclerView.addOnItemTouchListener(new AppAdapter.RecyclerTouchListener(getContext(), recyclerView, new AppAdapter.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Entry entry = applist.get(position);
+                Entry entry = game_category.get(position);
                 showAppDialog(entry);
             }
 
@@ -293,13 +387,13 @@ public class CategoryFragment extends Fragment {
                                 Entry entry = new Entry();
                                 entry.InitializeEntry(object,i);
                                 applist.add(entry);
-                                Log.d(TAG, "fetchAppData: entry: "+entry.getName());
                             }
                             Log.d(TAG, "onResponse: app list"+applist.size());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         orderByCategory();
+                        saveInformation();
                         appAdapter.notifyDataSetChanged();
                     }
 
@@ -317,13 +411,19 @@ public class CategoryFragment extends Fragment {
     private void loadAppData() {
         recyclerView = (RecyclerView) getView().findViewById(R.id.recyclerview);
         applist = new ArrayList<>();
-        Log.d("FRAGMENT", "loadData: applist info "+applist.size());
         appAdapter = new AppAdapter(applist, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.HORIZONTAL));
         recyclerView.setAdapter(appAdapter);
+    }
+
+    private void saveInformation() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("data",true);
+        editor.apply();
     }
 
 }
